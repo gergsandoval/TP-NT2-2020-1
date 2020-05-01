@@ -1,49 +1,11 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Vibration,
-} from "react-native";
-import style from "./components/styles";
+import { View, Vibration } from "react-native";
+import Style from "./components/styles";
 import Header from "./components/header";
-
-const StartButton = (props) => (
-  <TouchableOpacity
-    style={style.button}
-    disabled={props.disabled}
-    onPress={props.onStart}
-  >
-    <Text>Iniciar</Text>
-  </TouchableOpacity>
-);
-
-const StopButton = (props) => (
-  <TouchableOpacity
-    style={style.button}
-    disabled={props.disabled}
-    onPress={props.onStop}
-  >
-    <Text>Pausar</Text>
-  </TouchableOpacity>
-);
-
-const ResetButton = (props) => (
-  <TouchableOpacity style={style.button} onPress={props.onReset}>
-    <Text>Reiniciar</Text>
-  </TouchableOpacity>
-);
-
-const Timer = (props) => {
-  const actualSecondsText =
-    Math.floor(props.actualSeconds / 60)
-      .toString()
-      .padStart(2, "0") +
-    ":" +
-    (props.actualSeconds % 60).toString().padStart(2, "0");
-  return <Text style={style.actualSeconds}>{actualSecondsText}</Text>;
-};
+import StartButton from "./components/buttons/startButton";
+import StopButton from "./components/buttons/StopButton";
+import ResetButton from "./components/buttons/ResetButton";
+import Timer from "./components/timer";
 
 let interval;
 
@@ -118,13 +80,13 @@ export default class App extends React.Component {
 
   render = () => {
     return (
-      <View style={style.appContainer}>
+      <View style={Style.appContainer}>
         <Header />
         <Timer
-          style={style.actualSeconds}
+          style={Style.actualSeconds}
           actualSeconds={this.state.actualSeconds}
         />
-        <View style={style.buttonsContainer}>
+        <View style={Style.buttonsContainer}>
           <StartButton disabled={this.state.running} onStart={this.onStart} />
           <StopButton disabled={!this.state.running} onStop={this.onStop} />
           <ResetButton onReset={this.onReset} />

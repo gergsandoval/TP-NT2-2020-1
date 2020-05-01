@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
-import style from "./styles";
+import Style from "./styles";
 
 const Header = () => (
-  <View style={style.header}>
-    <Text style={style.title}>Cronometro Pomodoro</Text>
+  <View style={Style.header}>
+    <Text style={Style.title}>Cronometro Pomodoro</Text>
   </View>
 );
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-const style = StyleSheet.create({
+const Style = StyleSheet.create({
   header: {
     height: 80,
     paddingTop: 38,
@@ -35,4 +35,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default style;
+export default Style;
