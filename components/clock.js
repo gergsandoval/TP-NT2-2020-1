@@ -1,11 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const Clock = () => {
-  let minutesAndSeconds = "25:00";
+const Clock = (props) => {
   return (
     <View>
-      <Text style={styles.clock}>{minutesAndSeconds}</Text>
+      <Text style={styles.clock}>{props.timer}</Text>
     </View>
   );
 };
