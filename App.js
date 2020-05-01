@@ -1,29 +1,43 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ButtonsContainer from "./components/buttonsContainer";
-import Constants from "expo-constants";
 import Header from "./components/header";
 import Clock from "./components/clock";
 
 export default function App() {
-  const clockState = {
+  const workState = {
     workInitialState: 25 * 60,
-    breakInitialState: 5 * 60,
+    workActualState: 25 * 60,
+    description: "work",
   };
 
-  const [timer, setTimer] = useState(clockState.workInitialState);
+  const breakState = {
+    breakInitialState: 5 * 60,
+    breakActualState: 5 * 60,
+    description: "break",
+  };
 
-  const start = (timer) => {
-    timer--;
-    setTimer(timer);
+  const [initialTimer, setInitialTimer] = useState(workState.workInitialState);
+  const [actualTimer, setActualTimer] = useState(workState.workActualState);
+  const [description, setDescription] = useState(workState.description);
+
+  let intervalId;
+
+  const start = () => {
+    this.intervalId = setInterval(() => {
+      setActualTimer((prevActualTimer) => prevActualTimer - +1);
+    }, 1000);
   };
 
   const stop = () => {
-    console.log("pausar cronometro");
+    clearInterval(this.intervalId);
   };
 
   const reset = () => {
-    console.log("reiniciar cronometro");
+    setInitialTimer(workState.workInitialState);
+    setActualTimer(workState.workActualState);
+    setDescription(workState.description);
+    clearInterval(this.intervalId);
   };
 
   const buttons = [
@@ -35,8 +49,13 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header />
-      <Clock timer={timer} />
-      <ButtonsContainer buttons={buttons} timer={timer} />
+      <Clock actualTimer={actualTimer} />
+      <ButtonsContainer
+        buttons={buttons}
+        initialTimer={initialTimer}
+        actualTimer={actualTimer}
+        description={description}
+      />
     </View>
   );
 }

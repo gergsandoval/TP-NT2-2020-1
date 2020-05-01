@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 const Clock = (props) => {
   return (
     <View>
-      <Text style={styles.clock}>{props.timer}</Text>
+      <Text style={styles.clock}>{props.actualTimer}</Text>
     </View>
   );
 };
