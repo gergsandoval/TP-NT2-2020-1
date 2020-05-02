@@ -22,7 +22,7 @@ const Style = StyleSheet.create({
     padding: 20,
     backgroundColor: "#add8e6",
   },
-  buttonsContainer: {
+  rowContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -32,6 +32,22 @@ const Style = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     right: 8,
+  },
+  input: {
+    borderWidth: 1,
+    marginRight: 20,
+    width: "20%",
+    height: "100%",
+    textAlign: "center",
+  },
+  inputContainer: {
+    paddingTop: 30,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  inputText: {
+    fontSize: 15,
+    textAlignVertical: "center",
   },
 });
 

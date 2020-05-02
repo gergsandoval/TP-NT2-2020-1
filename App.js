@@ -3,9 +3,11 @@ import { View, Vibration } from "react-native";
 import Style from "./components/styles";
 import Header from "./components/header";
 import StartButton from "./components/buttons/startButton";
-import StopButton from "./components/buttons/StopButton";
-import ResetButton from "./components/buttons/ResetButton";
+import StopButton from "./components/buttons/stopButton";
+import ResetButton from "./components/buttons/resetButton";
 import Timer from "./components/timer";
+import WorkInput from "./components/inputs/workInput";
+import BreakInput from "./components/inputs/breakInput";
 
 let interval;
 
@@ -47,10 +49,12 @@ export default class App extends React.Component {
   };
 
   onStart = () => {
+    this.setState({
+      running: true,
+    });
     interval = setInterval(() => {
       this.setState({
         actualSeconds: this.state.actualSeconds - 1,
-        running: true,
       });
       this.handleNotification();
     }, 1000);
@@ -65,17 +69,26 @@ export default class App extends React.Component {
 
   onReset = () => {
     clearInterval(interval);
+    this.setState({
+      running: false,
+    });
     if (this.state.description === "work") {
       this.setState({
         actualSeconds: workState.initialSeconds,
-        running: false,
       });
     } else {
       this.setState({
         actualSeconds: breakState.initialSeconds,
-        running: false,
       });
     }
+  };
+
+  changeWorkValue = (minutes) => {
+    console.log(minutes);
+  };
+
+  changeBreakValue = (minutes) => {
+    console.log(minutes);
   };
 
   render = () => {
@@ -86,11 +99,19 @@ export default class App extends React.Component {
           style={Style.actualSeconds}
           actualSeconds={this.state.actualSeconds}
         />
-        <View style={Style.buttonsContainer}>
+        <View style={Style.rowContainer}>
           <StartButton disabled={this.state.running} onStart={this.onStart} />
           <StopButton disabled={!this.state.running} onStop={this.onStop} />
           <ResetButton onReset={this.onReset} />
         </View>
+        <WorkInput
+          changeWorkValue={this.changeWorkValue}
+          initialSeconds={workState.initialSeconds}
+        />
+        <BreakInput
+          changeBreakValue={this.changeBreakValue}
+          initialSeconds={breakState.initialSeconds}
+        />
       </View>
     );
   };
