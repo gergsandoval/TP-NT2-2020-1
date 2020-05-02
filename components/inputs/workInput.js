@@ -15,12 +15,13 @@ export default class WorkInput extends React.Component {
       <Text style={Style.inputText}>Tiempo de Trabajo (min): </Text>
       <TextInput
         style={Style.input}
-        placeholder="25"
+        placeholder={(this.props.state.workInitialSeconds / 60).toString()}
         onChangeText={(value) =>
           this.setState({
             minutes: parseInt(value.replace(/[^0-9]/g, "")),
           })
         }
+        editable={!this.props.state.isRunning}
         keyboardType="numeric"
       />
       <Button

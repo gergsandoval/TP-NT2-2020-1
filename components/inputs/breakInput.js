@@ -15,12 +15,13 @@ export default class BreakInput extends React.Component {
       <Text style={Style.inputText}>Tiempo de Descanso (min): </Text>
       <TextInput
         style={Style.input}
-        placeholder="5"
+        placeholder={(this.props.state.breakInitialSeconds / 60).toString()}
         onChangeText={(value) =>
           this.setState({
             minutes: parseInt(value.replace(/[^0-9]/g, "")),
           })
         }
+        editable={!this.props.state.isRunning}
         keyboardType="numeric"
       />
       <Button

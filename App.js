@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Vibration } from "react-native";
+import { View, Vibration, Keyboard } from "react-native";
 import Style from "./components/styles";
 import Header from "./components/header";
 import StartButton from "./components/buttons/startButton";
@@ -15,9 +15,9 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      workInitialSeconds: 10,
-      breakInitialSeconds: 5,
-      actualSeconds: 10,
+      workInitialSeconds: 60 * 25,
+      breakInitialSeconds: 60 * 5,
+      actualSeconds: 60 * 25,
       isWorkState: true,
       isRunning: false,
     };
@@ -84,20 +84,22 @@ export default class App extends React.Component {
   };
 
   changeWorkValue = (minutes) => {
-    if (minutes && this.state.isWorkState) {
+    if (minutes) {
       this.setState({
         workInitialSeconds: minutes * 60,
         actualSeconds: minutes * 60,
       });
+      Keyboard.dismiss();
     }
   };
 
   changeBreakValue = (minutes) => {
-    if (minutes && !this.state.isWorkState) {
+    if (minutes) {
       this.setState({
         breakInitialSeconds: minutes * 60,
         actualSeconds: minutes * 60,
       });
+      Keyboard.dismiss();
     }
   };
 
@@ -114,8 +116,11 @@ export default class App extends React.Component {
           <StopButton disabled={!this.state.isRunning} onStop={this.onStop} />
           <ResetButton onReset={this.onReset} />
         </View>
-        <WorkInput changeWorkValue={this.changeWorkValue} />
-        <BreakInput changeBreakValue={this.changeBreakValue} />
+        <WorkInput state={this.state} changeWorkValue={this.changeWorkValue} />
+        <BreakInput
+          state={this.state}
+          changeBreakValue={this.changeBreakValue}
+        />
       </View>
     );
   };
