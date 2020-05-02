@@ -15,7 +15,7 @@ export default class WorkInput extends React.Component {
       <Text style={Style.inputText}>Tiempo de Trabajo (min): </Text>
       <TextInput
         style={Style.input}
-        placeholder={(this.props.initialSeconds / 60).toString()}
+        placeholder="25"
         onChangeText={(value) =>
           this.setState({
             minutes: parseInt(value.replace(/[^0-9]/g, "")),

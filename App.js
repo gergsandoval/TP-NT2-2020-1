@@ -11,24 +11,16 @@ import BreakInput from "./components/inputs/breakInput";
 
 let interval;
 
-const workState = {
-  initialSeconds: 60 * 25,
-  actualSeconds: 60 * 25,
-  description: "work",
-  running: false,
-};
-
-const breakState = {
-  initialSeconds: 5 * 60,
-  actualSeconds: 5 * 60,
-  description: "break",
-  running: false,
-};
-
 export default class App extends React.Component {
   constructor() {
     super();
-    this.state = workState;
+    this.state = {
+      workInitialSeconds: 10,
+      breakInitialSeconds: 5,
+      actualSeconds: 10,
+      isWorkState: true,
+      isRunning: false,
+    };
   }
 
   handleNotification = () => {
@@ -41,16 +33,24 @@ export default class App extends React.Component {
   };
 
   changeClock = () => {
-    if (this.state.description === "work") {
-      this.setState(breakState);
+    if (this.state.isWorkState) {
+      this.setState({
+        actualSeconds: this.state.breakInitialSeconds,
+        isWorkState: false,
+        isRunning: false,
+      });
     } else {
-      this.setState(workState);
+      this.setState({
+        actualSeconds: this.state.workInitialSeconds,
+        isWorkState: true,
+        isRunning: false,
+      });
     }
   };
 
   onStart = () => {
     this.setState({
-      running: true,
+      isRunning: true,
     });
     interval = setInterval(() => {
       this.setState({
@@ -63,32 +63,42 @@ export default class App extends React.Component {
   onStop = () => {
     clearInterval(interval);
     this.setState({
-      running: false,
+      isRunning: false,
     });
   };
 
   onReset = () => {
     clearInterval(interval);
     this.setState({
-      running: false,
+      isRunning: false,
     });
-    if (this.state.description === "work") {
+    if (this.state.isWorkState) {
       this.setState({
-        actualSeconds: workState.initialSeconds,
+        actualSeconds: this.state.workInitialSeconds,
       });
     } else {
       this.setState({
-        actualSeconds: breakState.initialSeconds,
+        actualSeconds: this.state.breakInitialSeconds,
       });
     }
   };
 
   changeWorkValue = (minutes) => {
-    console.log(minutes);
+    if (minutes && this.state.isWorkState) {
+      this.setState({
+        workInitialSeconds: minutes * 60,
+        actualSeconds: minutes * 60,
+      });
+    }
   };
 
   changeBreakValue = (minutes) => {
-    console.log(minutes);
+    if (minutes && !this.state.isWorkState) {
+      this.setState({
+        breakInitialSeconds: minutes * 60,
+        actualSeconds: minutes * 60,
+      });
+    }
   };
 
   render = () => {
@@ -100,18 +110,12 @@ export default class App extends React.Component {
           actualSeconds={this.state.actualSeconds}
         />
         <View style={Style.rowContainer}>
-          <StartButton disabled={this.state.running} onStart={this.onStart} />
-          <StopButton disabled={!this.state.running} onStop={this.onStop} />
+          <StartButton disabled={this.state.isRunning} onStart={this.onStart} />
+          <StopButton disabled={!this.state.isRunning} onStop={this.onStop} />
           <ResetButton onReset={this.onReset} />
         </View>
-        <WorkInput
-          changeWorkValue={this.changeWorkValue}
-          initialSeconds={workState.initialSeconds}
-        />
-        <BreakInput
-          changeBreakValue={this.changeBreakValue}
-          initialSeconds={breakState.initialSeconds}
-        />
+        <WorkInput changeWorkValue={this.changeWorkValue} />
+        <BreakInput changeBreakValue={this.changeBreakValue} />
       </View>
     );
   };
