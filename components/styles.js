@@ -49,6 +49,11 @@ const Style = StyleSheet.create({
     fontSize: 15,
     textAlignVertical: "center",
   },
+  debugInfo: {
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: 30,
+  },
 });
 
 export default Style;

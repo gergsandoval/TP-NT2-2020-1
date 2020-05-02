@@ -18,16 +18,18 @@ export default class WorkInput extends React.Component {
         placeholder={(this.props.state.workInitialSeconds / 60).toString()}
         onChangeText={(value) =>
           this.setState({
-            minutes: parseInt(value.replace(/[^0-9]/g, "")),
+            minutes: value.replace(/[^0-9]/g, ""),
           })
         }
         editable={!this.props.state.isRunning}
         keyboardType="numeric"
+        maxLength={6}
       />
       <Button
-        onPress={() => this.props.changeWorkValue(this.state.minutes)}
+        onPress={() => this.props.changeWorkValue(parseInt(this.state.minutes))}
         title="Aplicar"
         color="black"
+        disabled={this.props.state.isRunning}
       />
     </View>
   );

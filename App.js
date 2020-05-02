@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Vibration, Keyboard } from "react-native";
+import { View, Vibration, Keyboard, Text } from "react-native";
 import Style from "./components/styles";
 import Header from "./components/header";
 import StartButton from "./components/buttons/startButton";
@@ -8,6 +8,7 @@ import ResetButton from "./components/buttons/resetButton";
 import Timer from "./components/timer";
 import WorkInput from "./components/inputs/workInput";
 import BreakInput from "./components/inputs/breakInput";
+import DebugInfo from "./components/debugInfo";
 
 let interval;
 
@@ -73,13 +74,24 @@ export default class App extends React.Component {
       isRunning: false,
     });
     if (this.state.isWorkState) {
-      this.setState({
-        actualSeconds: this.state.workInitialSeconds,
-      });
+      this.setState(
+        (prevState) => (prevState.actualSeconds = prevState.workInitialSeconds)
+      );
     } else {
-      this.setState({
-        actualSeconds: this.state.breakInitialSeconds,
-      });
+      this.setState(
+        (prevState) => (prevState.actualSeconds = prevState.breakInitialSeconds)
+      );
+    }
+  };
+
+  handleReset = () => {
+    if (
+      (this.state.isWorkState &&
+        this.state.actualSeconds === this.state.workInitialSeconds) ||
+      (!this.state.isWorkState &&
+        this.state.actualSeconds === this.state.breakInitialSeconds)
+    ) {
+      this.onReset();
     }
   };
 
@@ -87,9 +99,9 @@ export default class App extends React.Component {
     if (minutes) {
       this.setState({
         workInitialSeconds: minutes * 60,
-        actualSeconds: minutes * 60,
       });
       Keyboard.dismiss();
+      this.handleReset();
     }
   };
 
@@ -97,9 +109,9 @@ export default class App extends React.Component {
     if (minutes) {
       this.setState({
         breakInitialSeconds: minutes * 60,
-        actualSeconds: minutes * 60,
       });
       Keyboard.dismiss();
+      this.handleReset();
     }
   };
 
@@ -121,6 +133,7 @@ export default class App extends React.Component {
           state={this.state}
           changeBreakValue={this.changeBreakValue}
         />
+        <DebugInfo state={this.state} />
       </View>
     );
   };

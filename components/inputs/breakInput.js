@@ -18,16 +18,20 @@ export default class BreakInput extends React.Component {
         placeholder={(this.props.state.breakInitialSeconds / 60).toString()}
         onChangeText={(value) =>
           this.setState({
-            minutes: parseInt(value.replace(/[^0-9]/g, "")),
+            minutes: value.replace(/[^0-9]/g, ""),
           })
         }
         editable={!this.props.state.isRunning}
         keyboardType="numeric"
+        maxLength={6}
       />
       <Button
-        onPress={() => this.props.changeBreakValue(this.state.minutes)}
+        onPress={() =>
+          this.props.changeBreakValue(parseInt(this.state.minutes))
+        }
         title="Aplicar"
         color="black"
+        disabled={this.props.state.isRunning}
       />
     </View>
   );
