@@ -12,7 +12,7 @@ export default class BreakInput extends React.Component {
 
   render = () => (
     <View style={Style.inputContainer}>
-      <Text style={Style.inputText}>Tiempo de Descanso (min): </Text>
+      <Text style={Style.inputText}>Tiempo de descanso (min): </Text>
       <TextInput
         style={Style.input}
         placeholder={(this.props.state.breakInitialSeconds / 60).toString()}
@@ -23,7 +23,7 @@ export default class BreakInput extends React.Component {
         }
         editable={!this.props.state.isRunning}
         keyboardType="numeric"
-        maxLength={6}
+        maxLength={2}
       />
       <Button
         onPress={() =>

@@ -23,7 +23,7 @@ export default class WorkInput extends React.Component {
         }
         editable={!this.props.state.isRunning}
         keyboardType="numeric"
-        maxLength={6}
+        maxLength={2}
       />
       <Button
         onPress={() => this.props.changeWorkValue(parseInt(this.state.minutes))}
