@@ -8,7 +8,6 @@ import ResetButton from "./components/buttons/resetButton";
 import Timer from "./components/timer";
 import WorkInput from "./components/inputs/workInput";
 import BreakInput from "./components/inputs/breakInput";
-import DebugInfo from "./components/debugInfo";
 
 let interval;
 
@@ -133,7 +132,6 @@ export default class App extends React.Component {
           state={this.state}
           changeBreakValue={this.changeBreakValue}
         />
-        <DebugInfo state={this.state} />
       </View>
     );
   };
