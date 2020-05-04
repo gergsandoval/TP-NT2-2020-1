@@ -8,6 +8,7 @@ import ResetButton from "./components/buttons/resetButton";
 import Timer from "./components/timer";
 import WorkInput from "./components/inputs/workInput";
 import BreakInput from "./components/inputs/breakInput";
+import { vibrate } from "./utils";
 
 let interval;
 
@@ -25,7 +26,7 @@ export default class App extends React.Component {
 
   handleNotification = () => {
     if (this.state.actualSeconds === 0) {
-      Vibration.vibrate([500, 500, 500]);
+      vibrate();
       clearInterval(interval);
       this.changeClock();
       this.onStart();
