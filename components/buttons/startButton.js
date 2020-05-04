@@ -4,7 +4,7 @@ import { Text, TouchableOpacity } from "react-native";
 
 const StartButton = (props) => (
   <TouchableOpacity
-    style={Style.button}
+    style={props.disabled ? [Style.button, Style.disabled] : Style.button}
     disabled={props.disabled}
     onPress={props.onStart}
   >

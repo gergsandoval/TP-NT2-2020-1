@@ -49,6 +49,9 @@ const Style = StyleSheet.create({
     fontSize: 15,
     textAlignVertical: "center",
   },
+  disabled: {
+    backgroundColor: "#d3d3d3",
+  },
   debugInfo: {
     flexDirection: "column",
     alignItems: "center",

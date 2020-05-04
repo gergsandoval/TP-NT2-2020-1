@@ -14,7 +14,11 @@ export default class BreakInput extends React.Component {
     <View style={Style.inputContainer}>
       <Text style={Style.inputText}>Tiempo de descanso (min): </Text>
       <TextInput
-        style={Style.input}
+        style={
+          this.props.state.isRunning
+            ? [Style.input, Style.disabled]
+            : Style.input
+        }
         placeholder={(this.props.state.breakInitialSeconds / 60).toString()}
         onChangeText={(value) =>
           this.setState({
