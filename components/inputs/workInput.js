@@ -12,7 +12,7 @@ export default class WorkInput extends React.Component {
 
   pressHandler = (minutes) => {
     this.props.changeWorkValue(parseInt(minutes));
-    this.setState((prevState) => (prevState.minutes = ""));
+    this.setState((prevState) => ({ minutes: "" }));
   };
 
   render = () => (
@@ -26,9 +26,9 @@ export default class WorkInput extends React.Component {
         }
         placeholder={(this.props.state.workInitialSeconds / 60).toString()}
         onChangeText={(value) =>
-          this.setState({
+          this.setState((prevState) => ({
             minutes: value.replace(/[^0-9]/g, ""),
-          })
+          }))
         }
         editable={!this.props.state.isRunning}
         keyboardType="numeric"

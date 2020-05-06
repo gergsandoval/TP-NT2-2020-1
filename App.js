@@ -35,52 +35,46 @@ export default class App extends React.Component {
 
   changeClock = () => {
     if (this.state.isWorkState) {
-      this.setState({
+      this.setState((prevState) => ({
         actualSeconds: this.state.breakInitialSeconds,
         isWorkState: false,
         isRunning: false,
-      });
+      }));
     } else {
-      this.setState({
+      this.setState((prevState) => ({
         actualSeconds: this.state.workInitialSeconds,
         isWorkState: true,
         isRunning: false,
-      });
+      }));
     }
   };
 
   onStart = () => {
-    this.setState({
-      isRunning: true,
-    });
+    this.setState((prevState) => ({ isRunning: true }));
     interval = setInterval(() => {
-      this.setState({
+      this.setState((prevState) => ({
         actualSeconds: this.state.actualSeconds - 1,
-      });
+      }));
       this.handleNotification();
     }, 1000);
   };
 
   onStop = () => {
     clearInterval(interval);
-    this.setState({
-      isRunning: false,
-    });
+    this.setState((prevState) => ({ isRunning: false }));
   };
 
   onReset = () => {
     clearInterval(interval);
-    this.setState({
-      isRunning: false,
-    });
+    this.setState((prevState) => ({ isRunning: false }));
     if (this.state.isWorkState) {
-      this.setState(
-        (prevState) => (prevState.actualSeconds = prevState.workInitialSeconds)
-      );
+      this.setState((prevState) => ({
+        actualSeconds: prevState.workInitialSeconds,
+      }));
     } else {
-      this.setState(
-        (prevState) => (prevState.actualSeconds = prevState.breakInitialSeconds)
-      );
+      this.setState((prevState) => ({
+        actualSeconds: prevState.workInitialSeconds,
+      }));
     }
   };
 
@@ -97,9 +91,7 @@ export default class App extends React.Component {
 
   changeWorkValue = (minutes) => {
     if (minutes) {
-      this.setState({
-        workInitialSeconds: minutes * 60,
-      });
+      this.setState((prevState) => ({ workInitialSeconds: minutes * 60 }));
       Keyboard.dismiss();
       this.handleReset();
     }
@@ -107,9 +99,7 @@ export default class App extends React.Component {
 
   changeBreakValue = (minutes) => {
     if (minutes) {
-      this.setState({
-        breakInitialSeconds: minutes * 60,
-      });
+      this.setState((prevState) => ({ breakInitialSeconds: minutes * 60 }));
       Keyboard.dismiss();
       this.handleReset();
     }
