@@ -11,7 +11,7 @@ export default class WorkInput extends React.Component {
   }
 
   pressHandler = (minutes) => {
-    this.props.changeWorkValue(minutes);
+    this.props.changeWorkValue(parseInt(minutes));
     this.setState((prevState) => (prevState.minutes = ""));
   };
 
@@ -36,7 +36,7 @@ export default class WorkInput extends React.Component {
         value={this.state.minutes}
       />
       <Button
-        onPress={() => this.pressHandler(parseInt(this.state.minutes))}
+        onPress={() => this.pressHandler(this.state.minutes)}
         title="Aplicar"
         color="black"
         disabled={this.props.state.isRunning}
