@@ -17,7 +17,7 @@ export default class WorkInput extends React.Component {
 
   render = () => (
     <View style={Style.inputContainer}>
-      <Text style={Style.inputText}>Tiempo de Trabajo (min): </Text>
+      <Text style={Style.inputText}>Tiempo de trabajo (min): </Text>
       <TextInput
         style={
           this.props.state.isRunning

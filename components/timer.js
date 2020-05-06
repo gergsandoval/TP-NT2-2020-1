@@ -9,7 +9,12 @@ const Timer = (props) => {
       .padStart(2, "0") +
     ":" +
     (props.actualSeconds % 60).toString().padStart(2, "0");
-  return <Text style={Style.actualSeconds}>{actualSecondsText}</Text>;
+  const stateDescription = props.isWorkState ? "Trabajo" : "Descanso";
+  return (
+    <Text style={Style.actualSeconds}>
+      {stateDescription + ": " + actualSecondsText}
+    </Text>
+  );
 };
 
 export default Timer;

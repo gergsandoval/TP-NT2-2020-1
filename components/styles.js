@@ -31,7 +31,6 @@ const Style = StyleSheet.create({
     paddingTop: 10,
     fontSize: 30,
     textAlign: "center",
-    right: 8,
   },
   input: {
     borderWidth: 1,

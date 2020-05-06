@@ -112,6 +112,7 @@ export default class App extends React.Component {
         <Timer
           style={Style.actualSeconds}
           actualSeconds={this.state.actualSeconds}
+          isWorkState={this.state.isWorkState}
         />
         <View style={Style.rowContainer}>
           <StartButton disabled={this.state.isRunning} onStart={this.onStart} />
