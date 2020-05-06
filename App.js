@@ -36,13 +36,13 @@ export default class App extends React.Component {
   changeClock = () => {
     if (this.state.isWorkState) {
       this.setState((prevState) => ({
-        actualSeconds: this.state.breakInitialSeconds,
+        actualSeconds: prevState.breakInitialSeconds,
         isWorkState: false,
         isRunning: false,
       }));
     } else {
       this.setState((prevState) => ({
-        actualSeconds: this.state.workInitialSeconds,
+        actualSeconds: prevState.workInitialSeconds,
         isWorkState: true,
         isRunning: false,
       }));
@@ -53,7 +53,7 @@ export default class App extends React.Component {
     this.setState((prevState) => ({ isRunning: true }));
     interval = setInterval(() => {
       this.setState((prevState) => ({
-        actualSeconds: this.state.actualSeconds - 1,
+        actualSeconds: prevState.actualSeconds - 1,
       }));
       this.handleNotification();
     }, 1000);
@@ -73,7 +73,7 @@ export default class App extends React.Component {
       }));
     } else {
       this.setState((prevState) => ({
-        actualSeconds: prevState.workInitialSeconds,
+        actualSeconds: prevState.breakInitialSeconds,
       }));
     }
   };
