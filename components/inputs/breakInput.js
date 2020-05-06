@@ -10,6 +10,11 @@ export default class BreakInput extends React.Component {
     };
   }
 
+  pressHandler = (minutes) => {
+    this.props.changeBreakValue(minutes);
+    this.setState((prevState) => (prevState.minutes = ""));
+  };
+
   render = () => (
     <View style={Style.inputContainer}>
       <Text style={Style.inputText}>Tiempo de descanso (min): </Text>
@@ -28,11 +33,10 @@ export default class BreakInput extends React.Component {
         editable={!this.props.state.isRunning}
         keyboardType="numeric"
         maxLength={2}
+        value={this.state.minutes}
       />
       <Button
-        onPress={() =>
-          this.props.changeBreakValue(parseInt(this.state.minutes))
-        }
+        onPress={() => this.pressHandler(parseInt(this.state.minutes))}
         title="Aplicar"
         color="black"
         disabled={this.props.state.isRunning}
